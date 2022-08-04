@@ -1,0 +1,46 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List App</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome\css\font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome\css\font-awesome.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <form class="search-bar" action="/" method="GET">
+                <input type="search-name" class="contact-search" name="search-area" placeholder="Search" value="{{ search_input }}">
+            </form>
+
+            <a href="{% url 'add-contact' %}"><i class="fa fa-plus-circle"></i></a>
+        </header>
+
+        <section class="contacts-library">
+            <ul class="contacts-list">
+                {% for contact in contacts reversed %}
+                <a href="{% url 'profile' contact.id %}">
+                    <div class="contact-section">
+                        <li class="list_item">
+                            <p class="contact-name">{{ contact.full_name | title }}</p>
+                            <p class="relationship">{{ contact.relationship | title }}</p>
+                        </li>
+    
+                        <li class="list_item">
+                            <i class="fa fa-phone"></i>
+                            <i class="fa fa-inbox text"></i>
+                        </li>
+                    </div>
+                </a>
+                <hr>
+                {% empty %}
+                <h3 style="padding: 1.5em; color: white;">No contact found.</h3>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
